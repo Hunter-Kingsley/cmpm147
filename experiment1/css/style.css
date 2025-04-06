@@ -13,6 +13,15 @@ body {
     align-items: center;
 }
 
+button {
+    font-size: 1.5em;
+    padding: 0.5em 1em;
+}
+
+  #box {
+    font-size: 2.5em;
+  }
+
 #canvas-container {
     width: 100%;
     height: 600px;
