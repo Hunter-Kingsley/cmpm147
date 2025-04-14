@@ -1,30 +1,15 @@
-// sketch.js - purpose and description here
-// Author: Your Name
-// Date:
-
-// Here is how you might set up an OOP p5.js project
-// Note that p5.js looks for a file called sketch.js
-
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
-
 // Globals
 let myInstance;
 let canvasContainer;
 var centerHorz, centerVert;
+let i = 0;
+let stars = [];
+let starCount = 500;
+let spinFactor = 0.0009;
+let randX;
+let randY;
 
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
-
-    myMethod() {
-        // code to run when method is called
-    }
-}
+const stoneColor = "black";
 
 function resizeScreen() {
   centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
@@ -42,38 +27,96 @@ function setup() {
   canvas.parent("canvas-container");
   // resize canvas is the page is resized
 
-  // create an instance of the class
-  myInstance = new MyClass("VALUE1", "VALUE2");
 
   $(window).resize(function() {
     resizeScreen();
   });
   resizeScreen();
+
+  c1 = color(0, 0, random(50, 100));
+  c2 = color(20, 20, random(150, 255));
+  
+  randX = random() * width;
+  randY = random() * height;
+  //seed = random();
+  
+  for (let j = 0; j < starCount; j++) {
+    stars.push(new Star(random() * width * random([-1, 1]), random() * height * random([-1, 1]), random(0.5, 2), random(200, 255), random(200, 255), random(200, 255)));
+    
+    print(starCount.length)
+  }
+
+  drawBackground();
 }
 
-// draw() function is called repeatedly, it's the main animation loop
 function draw() {
-  background(220);    
-  // call a method on the instance
-  myInstance.myMethod();
-
-  // Set up rotation for the rectangle
-  push(); // Save the current drawing context
-  translate(centerHorz, centerVert); // Move the origin to the rectangle's center
-  rotate(frameCount / 100.0); // Rotate by frameCount to animate the rotation
-  fill(234, 31, 81);
-  noStroke();
-  rect(-125, -125, 250, 250); // Draw the rectangle centered on the new origin
-  pop(); // Restore the original drawing context
-
-  // The text is not affected by the translate and rotate
-  fill(255);
-  textStyle(BOLD);
-  textSize(140);
-  text("p5*", centerHorz - 105, centerVert + 40);
+  //drawBackground()
+  if (i % 1400 == 0) {
+    drawBackground();
+    drawBackground();
+    drawBackground();
+    drawBackground();
+  }
+  
+  i++;
+  //print(i)
+  
+  //stars[1].turn();
+  for (let obj of stars) {
+    obj.turn();
+  }
+  
+  drawMountain();
 }
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
+function drawBackground() {
+  for(let y=0; y<height; y++){
+    n = map(y,0,height,0,1);
+    let newc = lerpColor(c1,c2,n);
+    stroke(newc);
+    line(0,y,width, y);
+  }
 }
+
+function drawMountain() {
+  randomSeed(randX);
+  
+  fill(stoneColor);
+  stroke(stoneColor);
+  beginShape();
+  vertex(0, height);
+  const steps = 100;
+  for (let i = 0; i < steps + 1; i++) {
+    let x = (width * i) / steps;
+    //print(noise(x) * noise(x) * noise(x) * height + 200);
+    //print((noise(x) * sin(x) * sin(x) * 50) + height/1.2);
+    //print((sin(x) * cos(x) / noise(x) * 20) + height/1.2);
+    let y = height - (sin(x * 0.01) * cos(x * 0.005)) * 100 - noise(x * 0.02) * 150;
+    vertex(x, y);
+  }
+  vertex(width, height);
+  endShape(CLOSE);
+}
+
+class Star {
+  constructor(x, y, size, r, g, b) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.r = r;
+    this.g = g;
+    this.b = b;
+  }
+  turn() {
+    push();
+    
+    translate(randX, randY);
+    rotate(i*spinFactor)
+    fill(this.r, this.g, this.b);
+    stroke(this.r, this.g, this.b);
+    circle(this.x, this.y, this.size);
+    
+    pop();
+  }
+}
+
