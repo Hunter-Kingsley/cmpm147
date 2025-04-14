@@ -51,7 +51,7 @@ function setup() {
 
 function draw() {
   //drawBackground()
-  if (i % 1400 == 0) {
+  if (i % 2800 == 0) {
     drawBackground();
     drawBackground();
     drawBackground();
@@ -91,7 +91,7 @@ function drawMountain() {
     //print(noise(x) * noise(x) * noise(x) * height + 200);
     //print((noise(x) * sin(x) * sin(x) * 50) + height/1.2);
     //print((sin(x) * cos(x) / noise(x) * 20) + height/1.2);
-    let y = height - (sin(x * 0.01) * cos(x * 0.005)) * 100 - noise(x * 0.02) * 150;
+    let y = height - (sin(x * 0.01) * cos(x * 0.009)) * 100 - noise(x * 0.01) * floor(height/3);
     vertex(x, y);
   }
   vertex(width, height);
