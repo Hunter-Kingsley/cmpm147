@@ -30,6 +30,11 @@ function setup() {
 
   $(window).resize(function() {
     resizeScreen();
+    drawBackground();
+    drawBackground();
+    drawBackground();
+    drawBackground();
+    drawBackground();
   });
   resizeScreen();
 
