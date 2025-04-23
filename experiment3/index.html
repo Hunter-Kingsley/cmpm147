@@ -66,17 +66,18 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>Generates an original style rogue dungeon with auto-tiling features, create another generative-tiled overworld scene.
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>For every tile(symbol in ascii table) that needs to be detailed, the code checks the surrounding tiles and creates a bitmask that is passed to a table to pick the correct tile to layer over it</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>I think what I was able to produce from this assignment was definitely pretty neat, but I couldn't help but get stuck on the small details that were left unchecked due to the limitations in place. In the dungeon, there are some obvious tiles in some generation that would have benefited greatly from taking in the context of the 8 tiles around it instead of just 4. In the overworld, I maybe could have had to code do separate passes for each direction to create multiple layers instead of just being stuck with choosing one, but I thought that was a little out of scope. Either way, very neat, and I’m not much more familiar with how noise() and millis() work.</p>
 			</div>
 
 		</section>
